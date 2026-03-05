@@ -35,9 +35,17 @@ fun EpisodesListScreen(navController: NavController) {
                             navController.navigate("episode/${episode.id}")
                         }
                 ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        Text(text = episode.name, style = MaterialTheme.typography.titleLarge)
-                        Text(text = episode.code, style = MaterialTheme.typography.bodyMedium)
+                    Column(
+                        modifier = Modifier.padding(all = 12.dp)
+                    ) {
+                        Text(
+                            text = episode.name,
+                            style = MaterialTheme.typography.titleMedium
+                        )
+                        Text(
+                            text = "${episode.code} · ${episode.airDate}",
+                            style = MaterialTheme.typography.bodyMedium
+                        )
                     }
                 }
             }
