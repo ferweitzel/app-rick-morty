@@ -26,7 +26,7 @@ class EpisodesListViewModel : ViewModel() {
                 val response = ApiClient.rickMortyApi.getEpisodes()
                 _uiState.value = UiState.Success(response.results)
             } catch (e: Exception) {
-                _uiState.value = UiState.Error(e.message ?: "Unknown Error")
+                _uiState.value = UiState.Error(e.message ?: "Error al cargar episodios")
             }
         }
     }
