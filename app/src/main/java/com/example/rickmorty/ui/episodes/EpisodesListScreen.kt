@@ -18,9 +18,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.rickmorty.data.EpisodeDTO
-import com.example.rickmorty.theme.*
 import com.example.rickmorty.ui.state.UiState
+import com.example.rickmorty.ui.theme.*
 
 @Composable
 fun EpisodesListScreen(

@@ -18,14 +18,22 @@ fun AppNav() {
         startDestination = "episodes"
     ) {
         composable("episodes") {
-            EpisodesListScreen(navController)
+            EpisodesListScreen(navController = navController)
         }
         composable(
             route = "episode/{id}",
-            arguments = listOf(navArgument("id") { type = NavType.IntType })
+            arguments = listOf(
+                navArgument("id") {
+                    type = NavType.IntType }
+            )
         ) { backStackEntry ->
-            val episodeId = backStackEntry.arguments?.getInt("id")
-            EpisodeDetailScreen(navController, episodeId)
+            val episodeId = backStackEntry
+                .arguments?.getInt("id") ?: 0
+
+            EpisodeDetailScreen(
+                navController = navController,
+                episodeId = episodeId
+            )
         }
     }
 }
