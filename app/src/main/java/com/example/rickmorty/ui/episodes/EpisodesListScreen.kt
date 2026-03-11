@@ -8,6 +8,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.StarOutline
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -27,6 +29,7 @@ fun EpisodesListScreen(
     viewModel: EpisodesListViewModel = viewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val favoriteEpisodes by viewModel.favoriteEpisodes.collectAsState()
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -51,10 +54,15 @@ fun EpisodesListScreen(
                             verticalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
                             items(state.data) { episode ->
+                                val isFavorite = favoriteEpisodes.contains(episode.id.toString())
                                 EpisodeItem(
                                     episodeCode = episode.episode,
                                     title = episode.name,
                                     date = episode.airDate,
+                                    isFavorite = isFavorite,
+                                    onFavoriteClick = {
+                                        viewModel.toggleFavorite(episode.id.toString())
+                                    },
                                     onClick = {
                                         navController.navigate("episode/${episode.id}")
                                     }
@@ -73,7 +81,7 @@ fun EpisodesListScreen(
                                 onClick = { viewModel.loadEpisodes() },
                                 colors = ButtonDefaults.buttonColors(containerColor = AccentGreen)
                             ) {
-                                Text("Retry", color = BackgroundBlack)
+                                Text("Reintentar", color = BackgroundBlack)
                             }
                         }
                     }
@@ -133,6 +141,8 @@ fun EpisodeItem(
     episodeCode: String,
     title: String,
     date: String,
+    isFavorite: Boolean,
+    onFavoriteClick: () -> Unit,
     onClick: () -> Unit
 ) {
     Card(
@@ -169,11 +179,31 @@ fun EpisodeItem(
                     fontWeight = FontWeight.Bold
                 )
             }
-            Text(
-                text = date,
-                color = SecondaryText,
-                style = MaterialTheme.typography.bodySmall
-            )
+            
+            Column(
+                horizontalAlignment = Alignment.End,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = date,
+                    color = SecondaryText,
+                    style = MaterialTheme.typography.bodySmall
+                )
+                Spacer(modifier = Modifier.height(12.dp))
+                IconButton(
+                    onClick = { onFavoriteClick() },
+                    modifier = Modifier.size(24.dp)
+                ) {
+                    Icon(
+                        imageVector = if (isFavorite) Icons.Default.Star else Icons.Default.StarOutline,
+                        contentDescription = "Favorito",
+                        tint = if (isFavorite) Color(0xFFFFD700) else SecondaryText
+                    )
+                }
+            }
+            
+            Spacer(modifier = Modifier.width(8.dp))
+
             Icon(
                 imageVector = Icons.Default.ChevronRight,
                 contentDescription = null,

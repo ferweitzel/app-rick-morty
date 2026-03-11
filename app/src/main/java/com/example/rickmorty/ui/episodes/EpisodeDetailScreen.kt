@@ -90,14 +90,14 @@ fun EpisodeDetailScreen(
 
                         item {
                             DetailItem(label = "ID", value = episode.id.toString())
-                            DetailItem(label = "Code", value = episode.episode)
-                            DetailItem(label = "Air Date", value = episode.airDate)
+                            DetailItem(label = "Código", value = episode.episode)
+                            DetailItem(label = "Fecha de emisión", value = episode.airDate)
                             Spacer(modifier = Modifier.height(24.dp))
                         }
 
                         item {
                             Text(
-                                text = "Characters (${characters.size})",
+                                text = "Personajes (${characters.size})",
                                 style = MaterialTheme.typography.titleLarge,
                                 color = AccentGreen,
                                 fontWeight = FontWeight.SemiBold
@@ -124,7 +124,7 @@ fun EpisodeDetailScreen(
                             onClick = { vm.loadDetail(episodeId) },
                             colors = ButtonDefaults.buttonColors(containerColor = AccentGreen)
                         ) {
-                            Text("Retry", color = BackgroundBlack)
+                            Text("Reintentar", color = BackgroundBlack)
                         }
                     }
                 }
@@ -171,7 +171,7 @@ fun CharacterItem(character: CharacterDTO) {
                     color = SecondaryText
                 )
                 Text(
-                    text = "Gender: ${character.gender}",
+                    text = "Género: ${character.gender}",
                     style = MaterialTheme.typography.bodySmall,
                     color = SecondaryText
                 )
